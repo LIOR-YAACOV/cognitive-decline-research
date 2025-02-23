@@ -1,0 +1,26 @@
+test_images_list_file_1: image_splits_files/test/data_2024_10_04_m12_test_list_split_1.txt
+test_images_list_file_2: image_splits_files/test/data_2024_10_04_m12_test_list_split_2.txt
+test_images_list_file_3: image_splits_files/test/data_2024_10_04_m12_test_list_split_3.txt
+
+model: ConvNextBase
+
+num_classes: 1
+
+loss_fn: L1
+
+size: 512
+
+augmentations:
+
+target_task: MOCA_0_18_TO_12_18
+
+test_batch_size: 1
+
+num_workers: 4
+
+unfreeze: last_three_blocks
+pretrained: False
+
+ckpt_1: alz_saved_models/ConvNextBase_TuPretrained_sc_regression_0_to_12_1_w_aug.pth
+ckpt_2: alz_saved_models/ConvNextBase_TuPretrained_sc_regression_0_to_12_2_w_aug.pth
+ckpt_3: alz_saved_models/ConvNextBase_TuPretrained_sc_regression_0_to_12_3_w_aug.pth

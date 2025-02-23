@@ -1,0 +1,15 @@
+checkpoint: "new_saved_models/seed_42/res50_best_pretrained_fold0.pth"
+
+model: resnet50
+
+loss_fn: "ContrastiveCenter"
+
+data_dir: "TU-berlin-dataset"
+
+num_classes: 250
+
+seed: 42
+
+test_batch_size: 1
+
+num_workers: 4
