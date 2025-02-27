@@ -57,6 +57,7 @@ sbatch \
 	--mail-user $MAIL_USER \
 	--mail-type $MAIL_TYPE \
 	-o "$OUTPUT_NAME" \
+    -w gipdeep1 \
 <<EOF
 #!/bin/bash
 echo "*** SLURM BATCH JOB '$JOB_NAME' STARTING ***"
