@@ -5,20 +5,46 @@ import os
 
 import numpy as np
 
-def plot_results(train_losses, validation_losses, config, train_accuracies=None, val_accuracies=None, fold_index=None):
+
+
+# def get_image_name(config, model_name, data_index, used_augmentations, used_transfer, used_imagenet):
+#     image_name = model_name + f"-split{data_index}.png"
+#     #todo add cases based on best_ckpt name
+#     if used_augmentations:
+#         if used_transfer:
+#             image_name = model_name + f"-TU_Berlin_weights_w_aug-split{data_index}.png"
+#         elif config["pretrained"]:
+#             image_name = model_name + f"-ImageNet_weights_w_aug-split{data_index}.png"
+#         else:
+#             image_name = model_name + f"-w_aug-split{data_index}.png"
+#     else:
+#         if used_transfer:
+#             image_name = model_name + f"-TU_Berlin_weights_without_aug-split{data_index}.png"
+#         elif config["pretrained"]:
+#             image_name = model_name + f"-ImageNet_weights_without_aug-split{data_index}.png"
+#         else:
+#             image_name = model_name + f"-w/o_aug-split{data_index}.png"
+#
+#     return image_name
+
+def plot_results(train_losses, validation_losses, config, train_accuracies=None, val_accuracies=None):
     train_loss_indices = list(range(len(train_losses)))
     val_loss_indices = list(range(len(validation_losses)))
     best_ckpt = config["best_ckpt"].split(".")[0]
-
+    
+    
     model = config['model']
     used_augments = "aug" in best_ckpt
+    used_tu = "TuPretrained" in best_ckpt
+    used_IM = "IM" in best_ckpt
+    
+    data_split_index = best_ckpt.split("_")[-3]
+    save_path = ""
     
     if config['target'] == 'classification':
-        #Tu Berlin classification
         if train_accuracies and val_accuracies:
             train_acc_indices = list(range(len(train_accuracies)))
             val_acc_indices = list(range(len(val_accuracies)))
-            seed = config["seed"]
 
             fig, ax = plt.subplots(1, 2, figsize=(15, 5))
             ax[0].plot(train_loss_indices, train_losses, label="train_loss")
@@ -31,16 +57,14 @@ def plot_results(train_losses, validation_losses, config, train_accuracies=None,
             plt.suptitle(model + f"{fold_index}")
             if not os.path.exists(os.path.join(os.getcwd(), "model_scores")):
                 os.makedirs(os.path.join(os.getcwd(), "model_scores"))
-
-            data_split_index = best_ckpt.split("_")[-3]
-
+            
             if used_augments:
-                save_path = os.path.join(os.getcwd(), "model_scores", seed, model + "_aug_split" + data_split_index)
+                save_path = os.path.join(os.getcwd(), "model_scores", seed, model + "_aug_split" + data_split_index )
             else:
                 save_path = os.path.join(os.getcwd(), "model_scores", seed, model + "split" + data_split_index)
             plt.savefig(save_path, format='png')
     else:
-        #target is regression - collected alzheimer dataset
+        #target is regression
         fig = plt.figure(figsize=(15, 5))
         plt.plot(train_loss_indices, train_losses, label="train_loss")
         plt.plot(val_loss_indices, validation_losses, label="val_loss")
@@ -50,10 +74,13 @@ def plot_results(train_losses, validation_losses, config, train_accuracies=None,
         if not os.path.exists(os.path.join(os.getcwd(), "model_scores")):
             os.makedirs(os.path.join(os.getcwd(), "model_scores"))
         
-        img_name = best_ckpt.split("/")[1]
+        img_name = get_image_name(config, data_split_index, used_augments, used_tu, used_IM)
+        
         save_path = os.path.join(os.getcwd(), "model_scores", img_name)
+
         plt.savefig(save_path)
         
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
