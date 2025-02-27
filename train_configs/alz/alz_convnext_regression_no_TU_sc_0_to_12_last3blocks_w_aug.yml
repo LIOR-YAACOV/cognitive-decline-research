@@ -1,0 +1,43 @@
+train_images_list_file: image_splits_files/train/data_2024_10_04_m12_train_list_split_1.txt
+val_images_list_file: image_splits_files/val/data_2024_10_04_m12_validation_list_split_1.txt
+
+size: 512
+
+augmentations:     
+    brightness: 0.02    # [brightness varied in 1-x to 1+x]
+    gamma: 0.02         # [gamma varied in 1 to 1+x]    
+    rotate: 5          # [rotate -d to d degrees]
+    shear: 0            # [shear value -s to s]
+    scale: [0.9, 1.1]   # [scale in range (s_min, s_max)]
+    translate: [16, 16] # [translation by max (du, dv)]
+    hflip: 0.5          # [flip horizontally with chance p]
+
+target: regression
+
+target_task: MOCA_0_18_TO_12_18
+
+train_batch_size: 6
+val_batch_size: 6
+
+num_workers: 4
+
+lr: 0.0001
+num_epochs: 50
+
+optimizer: AdamW
+weight_decay: 0.0001
+
+num_classes: 1
+
+model: ConvNextBase
+warm_up_epochs: 10
+
+lr_patience: 8
+lr_decay_factor: 0.5
+
+loss_function: L1
+unfreeze: last_three_blocks
+pretrained: False
+
+best_ckpt: alz_saved_models/ConvNextBase_noTu_sc_regression_0_to_12_1_w_aug.pth
+tu_berlin_ckpt: 

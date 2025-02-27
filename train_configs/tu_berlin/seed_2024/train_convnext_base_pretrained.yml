@@ -1,0 +1,36 @@
+data_dir: "TU-berlin-dataset/"
+
+model: "ConvNextBase"
+
+train_batch_size: 16
+val_batch_size: 16
+test_batch_size: 1
+
+warm_up_epochs: 10
+
+num_epochs: 50
+
+lr: 0.0001
+optimizer: AdamW
+
+center_loss_lr: 0.00005
+
+
+lr_patience: 8
+lr_decay_factor: 0.5
+
+weight_decay: 0.0001
+seed: 2024
+loss_function: "ContrastiveCenter"
+
+unfreeze: last_three_blocks
+
+invert_colors: False
+num_workers: 4
+pretrained: True
+
+#hidden_dim: 1024
+num_classes: 250
+
+best_ckpt_path: "new_saved_models/seed_2024/ConvNextBase_best_pretrained"
+ckpt_path: "new_saved_models/seed_2024/ConvNextBase_pretrained"
