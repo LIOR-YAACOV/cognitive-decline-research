@@ -106,24 +106,24 @@ Common pretrained computer-vision models are trained on natural RGB photographs,
 
 The main experiments treat cognitive-score prediction as a supervised regression task.
 
-For an input drawing \(x\), the network predicts one continuous score:
+For an input drawing $x$, the network predicts one continuous score:
 
-\[
-\hat{y} = f_\theta(x)
-\]
+$$
+\hat{y} = f_{\theta}(x)
+$$
 
 where:
 
-- \(x\) is the preprocessed self-figure drawing;
-- \(f_\theta\) is the neural network;
-- \(\hat{y}\) is the predicted cognitive score;
-- \(y\) is the participant's ground-truth score.
+- $x$ is the preprocessed self-figure drawing;
+- $f_{\theta}$ is the neural network;
+- $\hat{y}$ is the predicted cognitive score;
+- $y$ is the participant's ground-truth score.
 
 The primary regression objective is the L1 loss:
 
-\[
-L_1 = \frac{1}{N}\sum_{i=1}^{N} |\hat{y}_i-y_i|
-\]
+$$
+L_1 = \frac{1}{N}\sum_{i=1}^{N}\left|\hat{y}_i-y_i\right|
+$$
 
 This loss corresponds to the mean absolute prediction error measured in score points and is less sensitive to large individual errors than squared-error loss.
 
@@ -609,7 +609,7 @@ Potential directions include:
 - improving participant-level split control and demographic balancing;
 - analyzing performance separately by country and collection site;
 - adding stronger baselines such as mean-score prediction and classical image features;
-- reporting additional regression metrics such as RMSE, \(R^2\), and correlation;
+- reporting additional regression metrics such as RMSE, $R^2$, and correlation;
 - testing confidence intervals and statistical significance across splits;
 - investigating smaller architectures and stronger regularization;
 - evaluating self-supervised learning on unlabeled sketches;
