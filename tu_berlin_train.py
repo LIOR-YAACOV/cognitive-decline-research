@@ -130,9 +130,6 @@ def train_k_fold(config, device):
 
     for fold_idx, (train_idx, val_idx) in enumerate(folds):
         print(f"\nTraining Fold {fold_idx + 1}/5")
-        
-        if fold_idx > 0:
-            continue
             
         # Map fold indices back to original dataset indices
         train_indices = train_val_indices[train_idx]
