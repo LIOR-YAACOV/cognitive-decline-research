@@ -434,8 +434,6 @@ cognitive-decline-research/
 └── alz_proj.yml                    # Conda environment definition
 ```
 
-The current repository also contains development-generated folders such as `.idea/` and `__pycache__/`. These should normally be removed from version control and added to `.gitignore`.
-
 ---
 
 ## Environment Setup
